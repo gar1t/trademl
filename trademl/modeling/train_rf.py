@@ -1,3 +1,5 @@
+import pdb;pdb.set_trace()
+
 # fundamental modules
 import numpy as np
 import pandas as pd
@@ -17,7 +19,7 @@ from mlfinlab.ensemble import SequentiallyBootstrappedBaggingClassifier
 from sklearn.base import clone
 import xgboost
 import shap
-# metrics 
+# metrics
 import mlfinlab as ml
 from sklearn.metrics import (
     classification_report,
@@ -98,7 +100,7 @@ if remove_ind_with_high_period:
     data.drop(columns=['autocorr_1', 'autocorr_2', 'autocorr_3',
                        'autocorr_4', 'autocorr_5'], inplace=True)
     print('pass')
-    
+
 
 ### REMOVE OUTLIERS
 outlier_remove = tml.modeling.pipelines.OutlierStdRemove(std_outlier)
@@ -138,7 +140,7 @@ elif labeling_technique == 'trend_scanning':
 X_train, X_test, y_train, y_test = train_test_split(
     X.drop(columns=['close_orig']), labeling_info['bin'],
     test_size=0.10, shuffle=False, stratify=None)
-    
+
 
 ### SAMPLE WEIGHTS (DECAY FACTOR CAN BE ADDED!)
 if sample_weights_type == 'returns':
@@ -175,7 +177,7 @@ clf = RandomForestClassifier(criterion='entropy',
                              n_jobs=16)
 # clf.fit(X_train, y_train, sample_weight=sample_weigths)
 scores = ml.cross_validation.ml_cross_val_score(
-    clf, X_train, y_train, cv_gen=cv, 
+    clf, X_train, y_train, cv_gen=cv,
     sample_weight_train=sample_weigths,
     scoring=sklearn.metrics.balanced_accuracy_score)  #sklearn.metrics.f1_score(average='weighted')
 
@@ -228,7 +230,7 @@ else:
     ### BACKTESTING (RADI)
 
     # BUY-SELL BACKTESTING STRATEGY
-    # true close 
+    # true close
     time_range = pd.date_range(X_test.index[0], X_test.index[-1], freq='1Min')
     close = data.close_orig.reindex(time_range).to_frame().dropna()
     # predictions on test set
@@ -272,12 +274,12 @@ else:
     #     json.dump(serialized_model, f)
 
 
-    ### BACKTEST STATISTICS 
+    ### BACKTEST STATISTICS
 
     # def pyfolio_sheet(returns):
     #     daily_returns = returns.resample('D').mean().dropna()
     #     perf_func = pf.timeseries.perf_stats
-    #     perf_stats_all = perf_func(returns=daily_returns, 
+    #     perf_stats_all = perf_func(returns=daily_returns,
     #                                factor_returns=None)
     #     return perf_stats_all
 
@@ -315,7 +317,7 @@ else:
     #         'Maximum Drawdown in dolars': drawdown_dollars.max(),
     #         'Maximum Drawdown time': tuw.max()
     #     }
-    #     # dictionary to dataframe    
+    #     # dictionary to dataframe
     #     df = pd.DataFrame.from_dict(backtest_statistics, orient='index')
 
     #     return df
@@ -363,7 +365,7 @@ else:
     # vertical_barriers_test = ml.labeling.add_vertical_barrier(
     #     t_events=cusum_events_test,
     #     close=close_test,
-    #     num_days=2) 
+    #     num_days=2)
 
     # # tripple barier events
     # triple_barrier_events_test = ml.labeling.get_events(

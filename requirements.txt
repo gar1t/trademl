@@ -1,0 +1,12 @@
+# python>=3.6
+
+backtrader
+h2o
+matplotlib
+mlfinlab
+numba
+pandas
+shap
+statsmodels
+ta-lib
+xgboost
