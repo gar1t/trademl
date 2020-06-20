@@ -1,5 +1,3 @@
-import pdb;pdb.set_trace()
-
 # fundamental modules
 import numpy as np
 import pandas as pd
@@ -9,7 +7,6 @@ import matplotlib
 import joblib
 import json
 import sys
-import guild.ipy as guild
 import os
 # preprocessing
 import sklearn
